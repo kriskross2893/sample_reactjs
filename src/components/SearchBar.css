@@ -1,10 +1,10 @@
 .searchbar{
-	padding:10px;
+	padding:8px;
 	
 }
 
-div.searchbar form input [type='text']{
-    padding: 8px;
+.my-searchbar{
+	padding:8px;
     border-radius: 8px;
     font-size: 16px;
 }

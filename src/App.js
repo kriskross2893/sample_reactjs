@@ -18,9 +18,11 @@ class App extends Component {
     super(props)
     this.state = {
       properties: [],
-      filterText: ''
+      filterText: '',
+      filterCriteria: 'id'
     };
     this.handleFilterTextInput = this.handleFilterTextInput.bind(this);
+    this.handleFilterSelectInput = this.handleFilterSelectInput.bind(this);
   }
 
 
@@ -28,7 +30,11 @@ class App extends Component {
     this.fireSearch(filterText);
   }
 
-
+  handleFilterSelectInput(filterSelect) {
+    this.setState({
+      filterCriteria: filterSelect
+    });
+  }
 
   fireSearch(filterText){
     console.log("value", filterText);
@@ -49,12 +55,12 @@ class App extends Component {
         }
       }
     }.bind(this);
-    var query = `query GetProperties($search: String) {
-      getProperties(search:$search){id,street,city,state,zip,rent}
+    var query = `query GetProperties($search: String, $criteria: String!) {
+      getProperties(search:$search, criteria:$criteria){id,street,city,state,zip,rent}
     }`;
     xhr.send(JSON.stringify({
       query: query,
-      variables: { search: filterText },
+      variables: { search: filterText , criteria: this.state.filterCriteria},
   }));
   }
 
@@ -67,7 +73,9 @@ class App extends Component {
         </div>
           <SearchBar
             filterText={this.state.filterText}
+            filterCriteria={this.state.filterCriteria}
             onFilterTextInput={this.handleFilterTextInput}
+            onFilterSelectInput={this.handleFilterSelectInput}
             propertyList={this.state.properties}
           />
           <PropertyList propertyList={this.state.properties} />
