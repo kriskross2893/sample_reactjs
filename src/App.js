@@ -34,7 +34,7 @@ class App extends Component {
     console.log("value", filterText);
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-    xhr.open("POST", "http://localhost:3000/graphql");
+    xhr.open("POST", "http://localhost:4000/graphql");
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.setRequestHeader("Accept", "application/json");
     xhr.onload = function () {
